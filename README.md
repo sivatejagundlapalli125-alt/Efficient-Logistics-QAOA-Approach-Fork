@@ -1,125 +1,51 @@
-# 🚚 Efficient Logistics Optimization Using QAOA
+# Efficient Logistics Optimization Using QAOA
 
-## 📌 Project Overview
+This GitHub fork contains a small interactive logistics-routing demonstration. The original upstream project is by Vidyasri; this copy adds the missing source modules and bundled sample data needed to run the demo.
 
-This project focuses on solving logistics optimization problems using **Quantum Approximate Optimization Algorithm (QAOA)** principles.
+## Run in VS Code or GitHub Codespaces
 
-Logistics operations such as vehicle routing, delivery scheduling, resource allocation, and cost minimization can be formulated as optimization problems. This project applies quantum-inspired optimization techniques to find optimal or near-optimal solutions efficiently.
+Open a terminal at the repository root and run:
 
-The system demonstrates how QAOA can be used for solving complex logistics optimization problems and compares the results with classical optimization approaches.
-
----
-
-## 🎯 Objectives
-
-- Optimize logistics and transportation operations.
-- Minimize delivery and operational costs.
-- Improve resource allocation.
-- Apply Quantum Approximate Optimization Algorithm (QAOA).
-- Compare quantum-inspired optimization with classical approaches.
-- Provide an interactive interface for visualizing results.
-
----
-
-## 🛠️ Technologies Used
-
-- Python
-- Streamlit
-- Qiskit
-- Docker
-- Docker Compose
-- Pytest
-
----
-
-## 📂 Project Structure
-
-```text
-Efficient-Logistics-QAOA-Project/
-│
-├── .kiro/
-│   └── specs/
-│       └── logistics-qaoa-system/
-│
-├── .streamlit/
-│   └── config.toml
-│
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── Dockerfile.streamlit
-├── Procfile
-├── demo.py
-├── deploy.bat
-├── deploy.sh
-├── docker-compose.yml
-├── packages.txt
-├── pytest.ini
-├── requirements.txt
-├── runtime.txt
-├── setup.py
-└── README.md
-```
-⚙️ Installation
-1. Clone the Repository
 ```bash
-git clone https://github.com/vidyasri03/Efficient-Logistics-QAOA-Approach.git
-```
-2. Navigate to the Project Folder
-```bash
-cd Efficient-Logistics-QAOA-Approach
-```
-3. Install Required Dependencies
-```bash
-pip install -r requirements.txt
-```
-▶️ Running the Application
-
-Run the Streamlit application using:
-```bash
-
+cd Efficient-Logistics-QAOA-Project
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 streamlit run demo.py
 ```
 
-🐳 Running with Docker
+On Windows PowerShell, activate the environment with:
 
-Build and run the application using Docker Compose:
-```bash
-docker-compose up --build
+```powershell
+cd Efficient-Logistics-QAOA-Project
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+py -m pip install -r requirements.txt
+streamlit run demo.py
 ```
-🧠 Methodology
 
-The logistics optimization problem is formulated as an optimization model where different logistics decisions are represented using binary variables.
+Streamlit prints a local URL. In Codespaces, open the forwarded port shown in the **Ports** panel to view the app.
 
-The optimization process involves:
+## What the demo does
 
-1. **Defining the logistics problem**
-2. **Converting the problem into a QUBO formulation**
-3. **Applying the QAOA algorithm**
-4. **Evaluating possible solutions**
-5. **Selecting the optimal or near-optimal solution**
-6. **Comparing the results with classical optimization methods**
+- Loads the included six-location travel-cost dataset.
+- Builds and validates a QUBO for the cyclic traveling-salesperson problem.
+- Finds an exact classical route for the small sample.
+- Compares it with a local p=1 QAOA state-vector simulation for up to three locations.
+- Displays the cost matrix and route diagram.
 
----
+The state-vector simulation grows exponentially, so QAOA is skipped when the selected instance exceeds 12 binary variables. The classical result still runs. The demo uses bundled sample data and does not need an API key or remote quantum service.
 
-## 📊 Features
+## Project layout
 
-- 🚚 Logistics optimization
-- ⚛️ QAOA-based optimization approach
-- 🖥️ Interactive Streamlit interface
-- 📈 Classical and quantum-inspired comparison
-- 🐳 Docker deployment support
-- 🧪 Automated testing using Pytest
-
----
-
-## 🚀 Future Enhancements
-
-- Support for larger logistics networks
-- Real-time logistics data integration
-- Improved visualization of optimized routes
-- Performance comparison with additional classical algorithms
-- Cloud deployment and scalability improvements
-
-👩‍💻 Author
-Vidyasri
+```
+Efficient-Logistics-QAOA-Project/
+├── demo.py
+├── data/                    # Sample locations and route costs
+└── src/
+    ├── preprocessing/       # CSV validation and cost matrix
+    ├── qubo/                 # TSP QUBO formulation
+    ├── classical/            # Exact small-instance route solver
+    ├── quantum/              # p=1 QAOA state-vector simulation
+    └── viz/                  # Cost heatmap and route plot
+```
